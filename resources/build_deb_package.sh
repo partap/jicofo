@@ -20,23 +20,23 @@ VERSION=$VERSIONMAJ-$BUILD_NUMBER
 
 # TODO: uncoment the following and move to the new numbering scheme
 ## Let's get version from maven
-#MVNVER=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" pom.xml)
-#TAG_NAME="v${MVNVER/-SNAPSHOT/}"
+MVNVER=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" pom.xml)
+TAG_NAME="v${MVNVER/-SNAPSHOT/}"
 
-#echo "Current tag name: $TAG_NAME"
+echo "Current tag name: $TAG_NAME"
 
-#if ! git rev-parse "$TAG_NAME" >/dev/null 2>&1
-#then
-#  git tag -a "$TAG_NAME" -m "Tagged automatically by Jenkins"
-#  git push origin "$TAG_NAME"
-#else
-#  echo "Tag: $TAG_NAME already exists."
-#fi
+if ! git rev-parse "$TAG_NAME" >/dev/null 2>&1
+then
+ git tag -a "$TAG_NAME" -m "Tagged automatically by Jenkins"
+ git push origin "$TAG_NAME"
+else
+ echo "Tag: $TAG_NAME already exists."
+fi
 
-#VERSION_FULL=$(git describe --match "v[0-9\.]*" --long)
-#echo "Full version: ${VERSION_FULL}"
+VERSION_FULL=$(git describe --match "v[0-9\.]*" --long)
+echo "Full version: ${VERSION_FULL}"
 
-#VERSION=${VERSION_FULL:1}
+VERSION=${VERSION_FULL:1}
 echo "Package version: ${VERSION}"
 
 REV=$(git log --pretty=format:'%h' -n 1)
