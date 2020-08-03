@@ -152,7 +152,7 @@ public class JibriRecorder
         String youTubeBroadcastId = iq.getYoutubeBroadcastId();
         String displayName = iq.getDisplayName();
         String applicationData = iq.getAppData();
-
+        logger.info('handleStartRequest() iq:' + iq.toXML());
         if ((!emptyStreamId
                 && (recordingMode.equals(RecordingMode.STREAM))
                     || recordingMode.equals(RecordingMode.UNDEFINED))
