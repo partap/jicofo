@@ -151,6 +151,8 @@ public class JibriSession
      */
     private final String streamID;
 
+    private final String streamUrl;
+
     private final String sessionId;
 
     /**
@@ -209,6 +211,7 @@ public class JibriSession
      * @param displayName a display name to be used by Jibri participant
      * entering the conference once the session starts.
      * @param streamID a live streaming ID if it's not a SIP session
+     * @param streamUrl a live streaming rtmp URL if it's not a YouTube stream
      * @param youTubeBroadcastId the YouTube broadcast id (optional)
      * @param applicationData a JSON-encoded string containing application-specific
      * data for Jibri
@@ -229,6 +232,7 @@ public class JibriSession
             String sipAddress,
             String displayName,
             String streamID,
+            String streamUrl,
             String youTubeBroadcastId,
             String sessionId,
             String applicationData,
@@ -247,6 +251,7 @@ public class JibriSession
         this.sipAddress = sipAddress;
         this.displayName = displayName;
         this.streamID = streamID;
+        this.streamUrl = streamUrl;
         this.youTubeBroadcastId = youTubeBroadcastId;
         this.sessionId = sessionId;
         this.applicationData = applicationData;
@@ -293,7 +298,7 @@ public class JibriSession
         {
             return JibriSessionEvent.Type.SIP_CALL;
         }
-        else if (isBlank(streamID))
+        else if (isBlank(streamID) && isBlank(streamUrl))
         {
             return JibriSessionEvent.Type.RECORDING;
         }
@@ -513,7 +518,7 @@ public class JibriSession
         {
             return RecordingMode.UNDEFINED;
         }
-        else if (streamID != null)
+        else if (streamID != null || streamUrl != null)
         {
             return RecordingMode.STREAM;
         }
@@ -536,7 +541,7 @@ public class JibriSession
             "Starting Jibri " + jibriJid
                 + (isSIP
                     ? ("for SIP address: " + sipAddress)
-                    : (" for stream ID: " + streamID))
+                    : (" for stream URL: " + streamUrl + ",  stream ID: " + streamID))
                 + " in room: " + roomName);
 
         final JibriIq startIq = new JibriIq();
@@ -548,9 +553,10 @@ public class JibriSession
         logger.debug(
             "Passing on jibri application data: " + this.applicationData);
         startIq.setAppData(this.applicationData);
-        if (streamID != null)
+        if (streamID != null || streamUrl != null)
         {
             startIq.setStreamId(streamID);
+            startIq.setStreamUrl(streamUrl);
             startIq.setRecordingMode(RecordingMode.STREAM);
             if (youTubeBroadcastId != null) {
                 startIq.setYouTubeBroadcastId(youTubeBroadcastId);

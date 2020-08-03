@@ -148,7 +148,8 @@ public class JibriRecorder
     {
         RecordingMode recordingMode = iq.getRecordingMode();
         String streamID = iq.getStreamId();
-        boolean emptyStreamId = isBlank(streamID);
+        String streamUrl = iq.getStreamUrl();
+        boolean emptyStreamId = isBlank(streamID) && isBlank(streamUrl);
         String youTubeBroadcastId = iq.getYoutubeBroadcastId();
         String displayName = iq.getDisplayName();
         String applicationData = iq.getAppData();
@@ -170,7 +171,7 @@ public class JibriRecorder
                     connection,
                     scheduledExecutor,
                     jibriDetector,
-                    false, null, displayName, streamID, youTubeBroadcastId, sessionId, applicationData,
+                    false, null, displayName, streamID, streamUrl, youTubeBroadcastId, sessionId, applicationData,
                     classLogger);
 
             try
