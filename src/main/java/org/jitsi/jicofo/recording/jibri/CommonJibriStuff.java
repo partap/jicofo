@@ -235,10 +235,10 @@ public abstract class CommonJibriStuff
      */
     final synchronized IQ handleIQRequest(JibriIq iq)
     {
-        if (logger.isDebugEnabled())
-        {
+        // if (logger.isDebugEnabled())
+        // {
             logger.debug("Jibri request. IQ: " + iq.toXML());
-        }
+        // }
 
         // Process if it belongs to an active recording session
         JibriSession session = getJibriSessionForMeetIq(iq);
