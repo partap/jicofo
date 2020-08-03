@@ -176,7 +176,7 @@ public class JibriRecorder
             try
             {
                 jibriSession.start();
-                logger.info("Started Jibri session");
+                logger.info("Started Jibri session (partap was here)");
 
                 return JibriIq.createResult(iq, sessionId);
             }
