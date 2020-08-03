@@ -576,7 +576,7 @@ public class JibriSession
         // run multiple times on retry, so we want to restart the pending
         // timeout each time.
         reschedulePendingTimeout();
-
+        logger.info("Sending NEW JibriIQ: " + startIq.toXML());
         IQ reply = xmpp.sendPacketAndGetReply(startIq);
 
         if (!(reply instanceof JibriIq))
