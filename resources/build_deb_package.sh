@@ -28,7 +28,7 @@ echo "Current tag name: $TAG_NAME"
 if ! git rev-parse "$TAG_NAME" >/dev/null 2>&1
 then
  git tag -a "$TAG_NAME" -m "Tagged automatically by Jenkins"
- git push origin "$TAG_NAME"
+ # git push origin "$TAG_NAME"
 else
  echo "Tag: $TAG_NAME already exists."
 fi
