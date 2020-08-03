@@ -168,7 +168,7 @@ public class JibriSipGateway
             try
             {
                 jibriSession.start();
-                logger.info("Started Jibri session");
+                logger.info("Started Jibri session (JibriSipGateway)");
 
                 return JibriIq.createResult(iq, sessionId);
             }
