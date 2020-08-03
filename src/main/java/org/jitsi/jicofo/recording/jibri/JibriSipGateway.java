@@ -161,7 +161,7 @@ public class JibriSipGateway
                         jibriDetector,
                         false,
                         sipAddress,
-                        displayName, null, null, sessionId, null,
+                        displayName, null, null, null, sessionId, null,
                         classLogger);
             sipSessions.put(sipAddress, jibriSession);
 
