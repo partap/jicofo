@@ -149,6 +149,8 @@ public class JibriRecorder
         RecordingMode recordingMode = iq.getRecordingMode();
         String streamID = iq.getStreamId();
         String streamUrl = iq.getStreamUrl();
+        String username = iq.getUsername();
+        String password = iq.getPassword();
         boolean emptyStreamId = isBlank(streamID) && isBlank(streamUrl);
         String youTubeBroadcastId = iq.getYoutubeBroadcastId();
         String displayName = iq.getDisplayName();
@@ -171,7 +173,9 @@ public class JibriRecorder
                     connection,
                     scheduledExecutor,
                     jibriDetector,
-                    false, null, displayName, streamID, streamUrl, youTubeBroadcastId, sessionId, applicationData,
+                    false, null, displayName, streamID,
+                    streamUrl, username, password,
+                    youTubeBroadcastId, sessionId, applicationData,
                     classLogger);
 
             try

@@ -153,6 +153,10 @@ public class JibriSession
 
     private final String streamUrl;
 
+    private final String username;
+
+    private final String password;
+
     private final String sessionId;
 
     /**
@@ -212,6 +216,8 @@ public class JibriSession
      * entering the conference once the session starts.
      * @param streamID a live streaming ID if it's not a SIP session
      * @param streamUrl a live streaming rtmp URL if it's not a YouTube stream
+     * @param username username for RTMP server, if required by provider
+     * @param password password for RTMP server, if required by provider
      * @param youTubeBroadcastId the YouTube broadcast id (optional)
      * @param applicationData a JSON-encoded string containing application-specific
      * data for Jibri
@@ -233,6 +239,8 @@ public class JibriSession
             String displayName,
             String streamID,
             String streamUrl,
+            String username,
+            String password,
             String youTubeBroadcastId,
             String sessionId,
             String applicationData,
@@ -252,6 +260,8 @@ public class JibriSession
         this.displayName = displayName;
         this.streamID = streamID;
         this.streamUrl = streamUrl;
+        this.username = username;
+        this.password = password;
         this.youTubeBroadcastId = youTubeBroadcastId;
         this.sessionId = sessionId;
         this.applicationData = applicationData;
@@ -542,6 +552,8 @@ public class JibriSession
                 + (isSIP
                     ? ("for SIP address: " + sipAddress)
                     : (" for stream URL: " + streamUrl + ",  stream ID: " + streamID))
+                + ((username != null)
+                    ? (", stream username: " + username) : "")
                 + " in room: " + roomName);
 
         final JibriIq startIq = new JibriIq();
@@ -557,6 +569,9 @@ public class JibriSession
         {
             startIq.setStreamId(streamID);
             startIq.setStreamUrl(streamUrl);
+            startIq.setUsername(username);
+            startIq.setPassword(password);
+
             startIq.setRecordingMode(RecordingMode.STREAM);
             if (youTubeBroadcastId != null) {
                 startIq.setYouTubeBroadcastId(youTubeBroadcastId);
